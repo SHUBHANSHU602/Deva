@@ -1,0 +1,21 @@
+{
+  "name": "deva",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A personal Microsoft-style DSA OA practice lab.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c cyan,magenta \"npm run dev -w @deva/server\" \"npm run dev -w @deva/web\"",
+    "build": "npm run build -w @deva/web && npm run build -w @deva/server",
+    "start": "npm run start -w @deva/server",
+    "test": "npm run test -w @deva/server && npm run test -w @deva/web"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
