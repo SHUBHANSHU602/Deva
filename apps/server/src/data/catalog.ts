@@ -3,7 +3,9 @@ import type {
   ProblemDefinition,
   PublicMock,
   PublicProblem,
+  TopicDefinition,
 } from "../types/catalog.js";
+import { v2Mocks, v2Problems, v2Topics } from "./v2/index.js";
 
 const liveCutoffStarter = `#include <bits/stdc++.h>
 using namespace std;
@@ -154,7 +156,7 @@ int main() {
     }
 }`;
 
-export const problems: ProblemDefinition[] = [
+const heapProblems: ProblemDefinition[] = [
   {
     id: "live-quality-cutoff",
     title: "Live Quality Cutoff",
@@ -605,9 +607,10 @@ export const problems: ProblemDefinition[] = [
   },
 ];
 
-export const mocks: MockDefinition[] = [
+const heapMocks: MockDefinition[] = [
   {
     id: "heap-foundations",
+    topicId: "heap",
     title: "Heap 01 · Selection Signals",
     subtitle: "Two production-flavored prompts with deliberately indirect signals and sharp tie rules.",
     level: 1,
@@ -617,6 +620,7 @@ export const mocks: MockDefinition[] = [
   },
   {
     id: "heap-scheduling",
+    topicId: "heap",
     title: "Heap 02 · Streams & Deadlines",
     subtitle: "Two operational scenarios where stale state and large input ranges punish shortcuts.",
     level: 2,
@@ -626,6 +630,7 @@ export const mocks: MockDefinition[] = [
   },
   {
     id: "heap-pressure",
+    topicId: "heap",
     title: "Heap 03 · Microsoft Pressure Set",
     subtitle: "Two dense OA-style scenarios designed to punish premature pattern matching.",
     level: 3,
@@ -634,6 +639,22 @@ export const mocks: MockDefinition[] = [
     focus: ["indirect wording", "64-bit safety", "time management"],
   },
 ];
+
+const heapTopic: TopicDefinition = {
+  id: "heap",
+  title: "Heap & Priority Queue",
+  shortTitle: "Heap",
+  description: "Selection, ordering, streaming, and scheduling under bounded state.",
+  order: 1,
+  priority: "Core",
+};
+
+export const topics: TopicDefinition[] = [heapTopic, ...v2Topics].sort(
+  (a, b) => a.order - b.order,
+);
+
+export const problems: ProblemDefinition[] = [...heapProblems, ...v2Problems];
+export const mocks: MockDefinition[] = [...heapMocks, ...v2Mocks];
 
 export const problemById = new Map(problems.map((problem) => [problem.id, problem]));
 export const mockById = new Map(mocks.map((mock) => [mock.id, mock]));

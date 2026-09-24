@@ -24,12 +24,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="sidebar-section">
-          <p className="sidebar-label">Current track</p>
+          <p className="sidebar-label">V2 library</p>
           <div className="track-card">
             <div className="track-icon"><Layers3 size={18} /></div>
             <div>
-              <strong>Heap & Priority Queue</strong>
-              <span>3 Microsoft-aligned mocks</span>
+              <strong>12 topic tracks</strong>
+              <span>36 strict mocks · 72 problems</span>
             </div>
           </div>
         </div>

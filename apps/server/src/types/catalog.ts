@@ -44,12 +44,22 @@ export interface ProblemDefinition {
 
 export interface MockDefinition {
   id: string;
+  topicId: string;
   title: string;
   subtitle: string;
   level: 1 | 2 | 3;
   durationMinutes: number;
   problemIds: string[];
   focus: string[];
+}
+
+export interface TopicDefinition {
+  id: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  order: number;
+  priority: "Core" | "Targeted gap";
 }
 
 export type PublicProblem = Omit<ProblemDefinition, "tests" | "editorial" | "tags">;
