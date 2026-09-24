@@ -78,13 +78,16 @@ export function ReviewPage() {
   );
 
   if (loading) return <AppShell><LoadingState label="Building your report…" /></AppShell>;
-  if (error) return <AppShell><ErrorState message={error} onRetry={retry} /></AppShell>;
+  if (error || !catalog) return <AppShell><ErrorState message={error || "Catalog unavailable"} onRetry={retry} /></AppShell>;
   if (!attempt || !mock) return <AppShell><ErrorState message="This attempt could not be found on this device." /></AppShell>;
   if (!attempt.completedAt || !attempt.reviewToken) return <AppShell><ErrorState message="Finish the mock before opening its review." /></AppShell>;
 
   const elapsed = Math.min(attempt.completedAt - attempt.startedAt, attempt.deadline - attempt.startedAt);
   const score = Math.round((solved / mock.problems.length) * 100);
   const totalRuns = Object.values(attempt.runCountByProblem).reduce((sum, count) => sum + count, 0);
+  const topic = catalog.topics.find((item) => item.id === mock.topicId);
+  const topicMocks = catalog.mocks.filter((item) => item.topicId === mock.topicId);
+  const nextTopicMock = topicMocks[topicMocks.findIndex((item) => item.id === mock.id) + 1];
 
   const toggleReflection = (tag: ReflectionTag) => {
     const next = attempt.reflectionTags.includes(tag)
@@ -139,8 +142,8 @@ export function ReviewPage() {
           <section className="panel next-action-panel">
             <p className="eyebrow">Next action</p>
             <Gauge size={24} />
-            <h2>{score === 100 ? "Advance to the next heap mock" : "Retry after one focused revision"}</h2>
-            <p>{score === 100 ? "The next set changes the signal from selection to streams and deadlines." : "Read the editorials below, rewrite only the failed solution, then retry the full mock tomorrow."}</p>
+            <h2>{score === 100 ? (nextTopicMock ? `Advance within ${topic?.shortTitle || "this track"}` : "Choose the next topic track") : "Retry after one focused revision"}</h2>
+            <p>{score === 100 ? (nextTopicMock ? `Next: ${nextTopicMock.title}. Its wording and failure modes change while the topic remains controlled.` : "This topic track is complete. Return to the coverage map and choose the next targeted gap.") : "Read the editorials below, rewrite only the failed solution, then retry the full mock tomorrow."}</p>
           </section>
         </div>
 
@@ -181,7 +184,7 @@ export function ReviewPage() {
                         </div>
                       </div>
                       <div className="alignment-note"><ShieldAlert size={17} /><div><strong>Microsoft alignment: {editorial.alignment.analogousPattern}</strong><span>{editorial.alignment.evidenceWindow} · {editorial.alignment.confidence} confidence</span></div></div>
-                      <div className="reference-code"><div><BookOpenCheck size={17} /><strong>Reference function</strong></div><pre><code>{editorial.referenceCode}</code></pre></div>
+                      <div className="reference-code"><div><BookOpenCheck size={17} /><strong>Reference solution</strong></div><pre><code>{editorial.referenceCode}</code></pre></div>
                     </div>
                   )}
                 </article>

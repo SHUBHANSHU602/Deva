@@ -40,6 +40,7 @@ function MockIntro({ mockId, onStarted }: { mockId: string; onStarted: (attempt:
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState<string>();
   const mock = catalog?.mocks.find((item) => item.id === mockId);
+  const topic = catalog?.topics.find((item) => item.id === mock?.topicId);
 
   if (!mock) return <ErrorState message="This mock does not exist." />;
 
@@ -76,7 +77,7 @@ function MockIntro({ mockId, onStarted }: { mockId: string; onStarted: (attempt:
         <Link className="text-link" to="/"><ArrowLeft size={16} /> Dashboard</Link>
       </header>
       <main className="mock-intro-card">
-        <div className="intro-badge">Heap track · Level {mock.level}</div>
+        <div className="intro-badge">{topic?.shortTitle || "Topic"} track · Level {mock.level}</div>
         <h1>{mock.title}</h1>
         <p className="intro-subtitle">{mock.subtitle}</p>
 
@@ -246,7 +247,7 @@ export function MockPage() {
         <div className="statement-pane"><ProblemStatement problem={problem} /></div>
         <div className="editor-pane">
           <div className="editor-toolbar">
-            <div><Code2 size={16} /><span>C++17</span><small>Function stub</small></div>
+            <div><Code2 size={16} /><span>C++17</span><small>{problem.starterCode.includes("void solve()") ? "Full program" : "Function stub"}</small></div>
             {currentResult && <VerdictBadge verdict={currentResult.verdict} />}
           </div>
           <div className="editor-frame">

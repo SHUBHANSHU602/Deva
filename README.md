@@ -1,20 +1,24 @@
 # Deva
 
-Deva is a personal, Microsoft-aligned DSA online-assessment lab. V1 focuses on **Heap & Priority Queue** practice: three strict mocks, six original problems, a C++17 judge, hidden edge cases, and post-mock diagnosis.
+Deva is a personal, Microsoft-aligned DSA online-assessment lab. V2 expands the original Heap track into a **12-topic curriculum with 36 strict mocks and 72 original problems**, backed by a C++17 judge, hidden edge cases, and post-mock diagnosis.
 
 The prompts are original. Their underlying patterns and pressure profile were selected from public Microsoft OA/interview reports and recent Microsoft-tagged problem data; they are not leaked questions and cannot predict a future assessment.
 
-## What V1 includes
+## What V2 includes
 
-- Three progressive Heap mocks (55, 70, and 80 minutes)
-- Six production-style questions with indirect wording and deterministic contracts
+- Twelve topic tracks: Heap; Arrays/Hashing/Matrix; Strings/Windows; Binary Search; Stack/Queue; Linked Lists/Design; Greedy/Intervals; Trees/BST; Graphs/Shortest Paths/DSU; Dynamic Programming; Backtracking/Trie; and Bit/Math/Recurrence
+- Three progressive mocks per topic, with two problems per mock
+- Seventy-two production-style questions with indirect wording, deterministic contracts, and deliberately twisted edge cases
+- Explicit **Core** versus **Targeted gap** labels so unfamiliar material is treated as planned coverage, not a recognition failure
 - Monaco C++17 editor with locally persisted drafts
 - Server-authoritative attempt deadlines and signed attempt/review tokens
 - Visible-sample runs plus hidden test submissions
 - Edge cases for duplicates, negative values, empty inputs, large gaps, tie-breaking, and 64-bit arithmetic
 - Post-mock report with score, elapsed time, run count, self-diagnosis, recognition cues, optimal approaches, and reference solutions
-- Personal dashboard with activity, streak, accuracy, readiness, retries, and active-attempt recovery
+- Topic-switching dashboard with per-track progress, activity, streak, accuracy, retries, and active-attempt recovery
 - Responsive dark UI for desktop and mobile
+
+Mixed Microsoft OA + interview mocks are intentionally deferred to the next version; V2 keeps one topic controlled at a time.
 
 ## Stack
 
@@ -61,7 +65,7 @@ npm test
 npm run build
 ```
 
-The server test suite verifies token integrity, output comparison, and compiles/runs all six reference implementations against every curated visible and hidden case.
+The server test suite verifies catalog integrity, token integrity, output comparison, and compiles/runs all 72 reference implementations against every curated visible and hidden case.
 
 ## Architecture
 
@@ -70,8 +74,8 @@ apps/web     React dashboard, timed workspace, local attempt history, review UI
 apps/server  Catalog, signed sessions, judge API, Piston adapter, hidden suites
 ```
 
-Attempt history and drafts are intentionally stored in the browser for this personal V1. Multi-device sync, authentication, an admin question studio, and additional topic tracks are natural later iterations.
+Attempt history and drafts are intentionally stored in the browser for this personal preparation tool. Multi-device sync, authentication, an admin question studio, and mixed-round generation remain later iterations.
 
 ## Research note
 
-The first track uses recurring public Microsoft-tagged patterns such as stream selection, frequency ordering, k-way merge, deadline selection, cooldown scheduling, and k-smallest pair expansion. Source inputs included public candidate reports and the community-maintained [company-wise LeetCode dataset](https://github.com/snehasishroy/leetcode-companywise-interview-questions). Source signals guide pattern selection only; Deva's wording, examples, edge cases, and implementations are original.
+The curriculum uses recurring public Microsoft-style signals across arrays, strings, matrices, linked-list design, interval scheduling, tree construction, BFS/topological ordering, DSU, constrained shortest paths, DP, backtracking, tries, and bit reasoning. Source inputs included public candidate reports, [InterviewBit's topic index](https://www.interviewbit.com/coding-interview-questions/#tags[]=4), and the community-maintained [company-wise LeetCode dataset](https://github.com/snehasishroy/leetcode-companywise-interview-questions). Source signals guide pattern selection only; Deva's wording, examples, edge cases, tests, and implementations are original.

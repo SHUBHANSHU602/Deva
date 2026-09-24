@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Router } from "express";
 import { z } from "zod";
-import { getPublicCatalog, mockById, problemById } from "../data/catalog.js";
+import { getPublicCatalog, mockById, problemById, topics } from "../data/catalog.js";
 import { submissionRateLimit } from "../lib/rateLimit.js";
 import {
   signToken,
@@ -19,7 +19,7 @@ router.get("/health", (_req, res) => {
 });
 
 router.get("/catalog", (_req, res) => {
-  res.json({ topics: [{ id: "heap", title: "Heap & Priority Queue", status: "active" }], mocks: getPublicCatalog() });
+  res.json({ topics, mocks: getPublicCatalog() });
 });
 
 router.post("/attempts/start", (req, res) => {

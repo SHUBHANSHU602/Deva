@@ -22,6 +22,7 @@ export interface Problem {
 
 export interface Mock {
   id: string;
+  topicId: string;
   title: string;
   subtitle: string;
   level: 1 | 2 | 3;
@@ -30,8 +31,17 @@ export interface Mock {
   problems: Problem[];
 }
 
+export interface Topic {
+  id: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  order: number;
+  priority: "Core" | "Targeted gap";
+}
+
 export interface Catalog {
-  topics: Array<{ id: string; title: string; status: string }>;
+  topics: Topic[];
   mocks: Mock[];
 }
 
